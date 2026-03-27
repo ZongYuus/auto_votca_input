@@ -1,0 +1,19 @@
+define = -DPOSRES	; 启用位置限制
+integrator = steep	; 最陡下降法 steepest descent	
+nsteps = 10000		; 最大步数，超过此步数则认为不收敛 
+emtol = 100.0		; 能量收敛标准 100 kJ/mol/nm
+emstep = 0.01		;即初始步长为0.01 nm
+;输出间隔
+nstxout = 20
+nstlog = 50
+nstenergy = 50
+;
+pbc = xyz		;周期性边界
+cutoff-scheme = Verlet	;Verlet截断
+coulombtype = PME	;使用PME方法计算长程静电作用
+rcoulomb = 1.0		;静电作用的截断半径
+vdwtype = Cut-off	;范德华力vdw的截断
+rvdw = 1.0
+DispCorr = EnerPres	;对能量Energy和压力Pressure进行长程色散Dispersion校正
+;
+constraints = none	;不施加任何约束
