@@ -132,7 +132,9 @@ def generate_final_top(itp_files):
     for x in supercell:
         total_multiplier *= x
 
-    final_top_path = os.path.join(MD_TEMP_DIR, "cry.top")
+    crystal_file = settings["crystal"]
+    top_file = crystal_file.replace(".pdb", ".top")
+    final_top_path = os.path.join(MD_TEMP_DIR, top_file)
 
     with open(final_top_path, "w", encoding="utf-8") as f:
         # header

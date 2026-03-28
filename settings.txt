@@ -1,0 +1,8 @@
+type : "gromacs"
+crystal : "btbt.pdb"                             #原胞文件
+single : "single"                              #单个原子文件 .pdb 和.mol
+number : "1"                                    #crystal中含有的分子数
+supercell : "8", "8", "8"                       #扩胞参数
+mdp : "default"                                 #否则指定两个.mdp文件
+orca : "/home/byf/orca611/orca"                 #完整orca路径，确保可以并行
+cores : "8"

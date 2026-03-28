@@ -64,7 +64,7 @@ def build_supercell(settings, workdir):
 
     crystal_file = settings["crystal"]
 
-    # 输出文件名：cry.gro
+    # 输出文件名：.gro
     output_file = crystal_file.replace(".pdb", ".gro")
 
     # 构建 gmx 命令
@@ -88,6 +88,9 @@ def run_mdp_pipeline(settings):
     - 在 MD_TEMP 中执行 grompp + mdrun
     - 自动串联 gro 文件
     """
+    crystal_file = settings["crystal"]
+    output_file = crystal_file.replace(".pdb", ".gro")
+    top_file = crystal_file.replace(".pdb", ".top")
 
     mdp_default_dir = get_resource_dir("MDP_DEFAULT")
     workdir = "MD_TEMP"   
@@ -114,7 +117,7 @@ def run_mdp_pipeline(settings):
         print(f"Copied: {src} -> {dst}")
 
     # ====== 3. 逐步执行 ======
-    prev_gro = "cry.gro"   # 初始结构（已在 MD_TEMP 中）
+    prev_gro = output_file   # 初始结构（已在 MD_TEMP 中）
 
     for mdp in mdp_list:
         name = os.path.splitext(mdp)[0]
@@ -123,7 +126,7 @@ def run_mdp_pipeline(settings):
         grompp_cmd = [
             "gmx", "grompp",
             "-f", mdp,
-            "-p", "cry.top",
+            "-p", top_file,
             "-c", prev_gro,
             "-o", f"{name}.tpr",
             "-maxwarn", "4"
